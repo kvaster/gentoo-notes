@@ -144,3 +144,11 @@ CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-gpu-memory-buffers"
 ```
 
 Перезапускаем chromium, заходим на chrome://gpu и радуемся тому, что видим :)
+
+Также я заметил, что chromium ругается на один kernel параметр для i915, но его не получится вписать
+в sysctl.conf потому, что драйвер ещё не загружен в тот момент, когда sysctl.conf применяется.
+В моих настройках есть powersave скрипт в init.d в него можно вставить в функцию старт следующее:
+
+```
+sysctl -w dev.i915.perf_stream_paranoid=0
+```
