@@ -6,6 +6,7 @@
 ## General
 
 * [Chromium](chromium.md)
+* [Pipewire](pipewire.md)
 
 ## XPS 9575
 
