@@ -85,3 +85,9 @@ fi
 card=`LC_ALL=en_US pactl list cards | grep bluez_card -m1 | sed -rn "s/^.*(bluez_card[^ ]+)/\1/p"`
 pactl set-card-profile $card $profile
 ```
+
+## Автоматическое переключение на проводные наушники при подключении
+
+У себя я заметил, что перестало работать автоматическое переключение на проводные наушники при их подключении.
+Вылечить такое смог с помощью изменения alsa профила в `/usr/share/alsa-card-profile/mixer/paths/analog-output-headphones.conf`.
+В этом файле надо поменять `priority` на 101 вместо 99 - чтобы наушники были важнее обычного выхода, у которого `priority` выставлен в 100.
