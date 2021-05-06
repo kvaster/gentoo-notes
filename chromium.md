@@ -116,13 +116,15 @@ emerge -1 chromium
 ```
 CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --ignore-gpu-blocklist"
 
-CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-experimental-canvas-features --enable-accelerated-2d-canvas --canvas-msaa-sample-count=2 --force-display-list-2d-canvas --force-gpu-rasterization --enable-fast-unload --enable-accelerated-vpx-decode=3 --enable-tcp-fastopen --javascript-harmony --enable-checker-imaging --enable-zero-copy --ui-enable-zero-copy --enable-webgl-image-chromium --enable-accelerated-video --enable-gpu-rasterization --use-skia-deferred-display-list --use-skia-renderer"
+CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-experimental-canvas-features --enable-accelerated-2d-canvas --canvas-msaa-sample-count=2 --force-display-list-2d-canvas --enable-fast-unload --enable-tcp-fastopen --javascript-harmony --enable-checker-imaging --enable-zero-copy --ui-enable-zero-copy --enable-webgl-image-chromium --enable-gpu-rasterization --enable-gpu-compositing --force-gpu-rasterization --use-skia-deferred-display-list --use-skia-renderer"
 
 CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --use-vulkan"
 
 CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --v8-cache-options=code --v8-cache-strategies-for-cache-storage=aggressive"
 
 CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-gpu-memory-buffers"
+
+CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-accelerated-video --enable-accelerated-video-decode --enable-accelerated-vpx-decode=3 --enable-features=VaapiVideoDecoder"
 ```
 
 Запускаем chromium, заходим на страницу chrome://flags и включаем следующие опции:
