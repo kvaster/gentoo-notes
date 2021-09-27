@@ -61,6 +61,7 @@ NM="llvm-nm"
 RANLIB="llvm-ranlib"
 
 EXTRA_GN="thin_lto_enable_optimizations=true use_lld=true use_thin_lto=true is_cfi=true"
+EXTRA_GN="${EXTRA_GN} chrome_pgo_phase=2"
 ```
 
 Включаем его для chromium в `/etc/portage/package.env/common.env`:
@@ -69,39 +70,7 @@ EXTRA_GN="thin_lto_enable_optimizations=true use_lld=true use_thin_lto=true is_c
 www-client/chromium chromium-clang
 ```
 
-Разрешаем clang 11-й версии. В `/etc/portage/package.accept_keywords/common.accept`:
-
-```
-<sys-devel/llvm-11.0.0.9999 **
-<sys-devel/lld-11.0.0.9999 **
-<sys-devel/clang-11.0.0.9999 **
-<sys-devel/clang-runtime-11.0.0.9999 **
-<sys-libs/compiler-rt-11.0.0.9999 **
-<sys-libs/compiler-rt-sanitizers-11.0.0.9999 **
-<sys-libs/libomp-11.0.0.9999 **
-<sys-devel/llvmgold-11.0.0.9999 **
-```
-
-Также в `/etc/portage/package.unmask/common.unmask`:
-
-```
-<sys-devel/llvm-11.0.0.9999
-<sys-devel/lld-11.0.0.9999
-<sys-devel/clang-11.0.0.9999
-<sys-devel/clang-runtime-11.0.0.9999
-<sys-libs/compiler-rt-11.0.0.9999
-<sys-libs/compiler-rt-sanitizers-11.0.0.9999
-<sys-libs/libomp-11.0.0.9999
-<sys-devel/llvmgold-11.0.0.9999
-```
-
-После этого можно пересобрать clang:
-
-```
-emerge -1 llvm clang lld
-```
-
-Ну и сам chromium:
+И пересобираем:
 
 ```
 emerge -1 chromium
@@ -153,4 +122,47 @@ CHROMIUM_FLAGS="${CHROMIUM_FLAGS} --enable-accelerated-video --enable-accelerate
 
 ```
 sysctl -w dev.i915.perf_stream_paranoid=0
+```
+
+## Версия clang
+
+Иногда может так получиться, что новый chromium требует более новой версии clang.
+В таком случае нам придётся эту версию разблокировать - с вероятностью 99% она уже есть в portage:
+
+Разрешаем clang 11-й версии. В `/etc/portage/package.accept_keywords/common.accept`:
+
+```
+<sys-devel/llvm-11.0.0.9999 **
+<sys-devel/lld-11.0.0.9999 **
+<sys-devel/clang-11.0.0.9999 **
+<sys-devel/clang-runtime-11.0.0.9999 **
+<sys-libs/compiler-rt-11.0.0.9999 **
+<sys-libs/compiler-rt-sanitizers-11.0.0.9999 **
+<sys-libs/libomp-11.0.0.9999 **
+<sys-devel/llvmgold-11.0.0.9999 **
+```
+
+Также в `/etc/portage/package.unmask/common.unmask`:
+
+```
+<sys-devel/llvm-11.0.0.9999
+<sys-devel/lld-11.0.0.9999
+<sys-devel/clang-11.0.0.9999
+<sys-devel/clang-runtime-11.0.0.9999
+<sys-libs/compiler-rt-11.0.0.9999
+<sys-libs/compiler-rt-sanitizers-11.0.0.9999
+<sys-libs/libomp-11.0.0.9999
+<sys-devel/llvmgold-11.0.0.9999
+```
+
+После этого можно пересобрать clang:
+
+```
+emerge -1 llvm clang lld
+```
+
+Ну и сам chromium:
+
+```
+emerge -1 chromium
 ```

@@ -17,7 +17,7 @@ x11-drivers/nvidia-drivers kms uvm gtk3
 
 Собираем изменения мира: `emerge -avDuN @world`
 
-Выполняем пункт 'Automated Setup' по ссылке: https://download.nvidia.com/XFree86/Linux-x86_64/440.64/README/dynamicpowermanagement.html
+Выполняем пункт 'Automated Setup' по ссылке: https://download.nvidia.com/XFree86/Linux-x86_64/440.64/README/dynamicpowermanagement.htmloptions
 
 Опцию в nvidia.conf надо ДОБАВИТЬ, а не заменить полностью весь файл.
 
@@ -58,6 +58,9 @@ Section "Device"
   Option "AllowEmptyInitialConfiguration"
 EndSection
 ```
+
+В последних версиях перестал работать suspend. Данная проблема описана [тут](https://bugs.gentoo.org/763129).
+Для решения проблемы надо в `/etc/conf.d/nvidia` добавить: `NVreg_PreserveVideoMemoryAllocations=0`.
 
 И финал: для того, чтобы запустить приложение на nvidia, используем следующий скрипт:
 
