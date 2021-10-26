@@ -27,7 +27,7 @@ autospawn = no
 Добавляем в автозапуск в `~/.xprofile`:
 
 ```
-/usr/bin/gentoo-pipewire-launcher
+/usr/bin/gentoo-pipewire-launcher &
 ```
 
 Редактируем настройки сессии в `/etc/pipewire/media-session.d/media-session.conf`:
