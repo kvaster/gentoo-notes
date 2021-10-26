@@ -27,7 +27,7 @@ autospawn = no
 Добавляем в автозапуск в `~/.xprofile`:
 
 ```
-pipewire &
+/usr/bin/gentoo-pipewire-launcher
 ```
 
 Редактируем настройки сессии в `/etc/pipewire/media-session.d/media-session.conf`:
@@ -60,12 +60,16 @@ rules = [
           ...
           bluez5.reconnect-profiles = [ hfp_hf a2dp_sink hfp_ag a2dp_source ] # hsp опять не включаем
           bluez5.msbc-support = true
+          bluez5.autoswitch-profile = true
         }
       }
       ...
   }
 ]
 ```
+
+Хочу обратить внимание на `bluez5.autoswitch-profile = true` - эта опция позволит наушника автоматически переключаться
+между a2dp и hfp профилями при звонках (использовании микрофона).
 
 Настройки готовы и мы можем просто ребутнуться / перезапустить сессию.
 
@@ -85,6 +89,8 @@ fi
 card=`LC_ALL=en_US pactl list cards | grep bluez_card -m1 | sed -rn "s/^.*(bluez_card[^ ]+)/\1/p"`
 pactl set-card-profile $card $profile
 ```
+
+Вообще, в последних обновлениях kde переключение BT режима сделано достаточно удобно и из gui.
 
 ## Автоматическое переключение на проводные наушники при подключении
 
