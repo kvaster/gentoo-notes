@@ -17,7 +17,7 @@ x11-drivers/nvidia-drivers kms uvm gtk3
 
 Собираем изменения мира: `emerge -avDuN @world`
 
-Выполняем пункт 'Automated Setup' по ссылке: https://download.nvidia.com/XFree86/Linux-x86_64/440.64/README/dynamicpowermanagement.htmloptions
+Выполняем пункт 'Automated Setup' по ссылке: https://download.nvidia.com/XFree86/Linux-x86_64/440.64/README/dynamicpowermanagement.html
 
 Опцию в nvidia.conf надо ДОБАВИТЬ, а не заменить полностью весь файл.
 
